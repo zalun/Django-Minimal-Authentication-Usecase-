@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+<body>
+    <h1>Test CSRF redirect</h1>
+    {% if msg %}<h2>{{ msg }}</h2>{% endif %}
+    <p>{% if user.is_authenticated %}Authenticated as {{ user.username }} 
+    - <a href="{% url logout %}?next=/">log out</a>
+    {% else %}Not authenticated</p>
+    <p><a href="{% url login %}?next=/">login</a>{% endif %}
+    <form method="post" action="{% url post %}">{% csrf_token %}
+        <input type="input" name="data" value="some data">
+        <input type="submit" value="make POST request">
+    </form>
+</body>
+</html>
